@@ -1,0 +1,52 @@
+﻿@model IEnumerable<AsmAppDev2.Models.AssignTrainertoTopic>
+@{
+	ViewBag.Title = "Index";
+}
+
+<h2>Trainer Topic</h2>
+
+
+
+@if (User.IsInRole("Staff"))
+{
+	@Html.ActionLink("Assign Trainer to Topic", "Create")
+
+
+	<table class="table">
+		<tr>
+			<th>Email</th>
+			<th>UserName</th>
+			<th>Topic </th>
+			<th>Delete</th>
+
+
+		</tr>
+		@foreach (var assign in Model)
+		{
+			<tr>
+				<th>@assign.Trainer.Email</th>
+				<th>@assign.Trainer.UserName</th>
+				<th>@assign.Topic.Name</th>
+				<th>@Html.ActionLink("Delete", "Delete", new { id = assign.ID })</th>
+
+			</tr>
+		}
+	</table>
+}
+@if (User.IsInRole("Trainer"))
+{
+	<table class="table">
+		<tr>
+			<th>Topic</th>
+		</tr>
+
+		@foreach (var assign in Model)
+		{
+			<tr>
+				<td>@assign.Topic.Name</td>
+			</tr>
+		}
+	</table>
+}
+
+@Html.ActionLink("Back to home", "Index", "Home")
