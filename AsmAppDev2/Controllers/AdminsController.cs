@@ -141,17 +141,16 @@ namespace AsmAppDev2.Controllers
             }
 
 
-            var userId = User.Identity.GetUserId();
-            userId = accountInDb.Id;
-            if (userId != null)
+
+            if (accountInDb.Id != null)
             {
 
                 UserManager<IdentityUser> userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>());
 
 
-                userManager.RemovePassword(userId);
+                userManager.RemovePassword(accountInDb.Id);
                 String newPassword = "abc123@";
-                userManager.AddPassword(userId, newPassword);
+                userManager.AddPassword(accountInDb.Id, newPassword);
             }
             _context.SaveChanges();
             return RedirectToAction("Index");
